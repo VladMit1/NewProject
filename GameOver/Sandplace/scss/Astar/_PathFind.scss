@@ -1,0 +1,14 @@
+.wrapper {
+   width: 80%;
+   margin: auto;
+   margin-top:2em;
+   position:absolute
+}
+.row-wrapper {
+   display: flex;
+   
+}
+.grid{
+   display:grid;
+   grid-template-columns: repeat(1, 1fr);
+}

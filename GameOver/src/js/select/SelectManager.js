@@ -3,13 +3,14 @@ import { SelectAdd } from './SelectAdd';
 import { Select } from './Select';
 import '../../scss/main.scss';
 
-
 const BASE_URL = 'http://localhost:4001';
 const ENDPOINT = '/map';
 
 const fullUrl = `${BASE_URL}${ENDPOINT}`;
-
+const mapX = 10;
+const mapY = 10;
 export const SelectManager = ({ style }) => {
+const [grid, setGrid] = useState([]);
    const [maps, setMaps] = useState([]);
    useEffect(() => {
       fetch(fullUrl)
@@ -53,27 +54,19 @@ export const SelectManager = ({ style }) => {
    if (!maps.length) {
       return <div>Fetching map...</div>;
    }
+   
    console.log(maps);
    const GridwithNodes = (
-      <div className="grid" style={{ marginTop:'2em'}}>
-         {maps.map((row, i) => {
-            return (
-               <div key={i} className="row-wrapper">
-                  {/*{row.map((col, j) => {
-                     return (*/}
-                        <Select
-                           key={i}
-                           //onDelete={handleSold}
-                           map={row}
-                           onEdit={handleEdit}
-                        />
-                  {/*//   );*/}
-                  {/*//})}*/}
-               </div>
-            );
-         })}
+      <div className="grid" style={{ marginTop: '2em' }}>
+         <div className="row-wrapper">
+            {}
+            <Select
+               //onDelete={handleSold}
+               onEdit={handleEdit}
+            />
+         </div>
          <SelectAdd onSubmit={onSubmit} />
       </div>
    );
-   return <>{ GridwithNodes }</>;
+   return <>{GridwithNodes}</>;
 };

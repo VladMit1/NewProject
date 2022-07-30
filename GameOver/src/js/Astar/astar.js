@@ -43,7 +43,7 @@ function Astar(startNode, endNode) {
             if (newPath) {
                neighbor.h = heruistic(neighbor, endNode);
                //
-               neighbor.f = neighbor.g + neighbor.f;
+               neighbor.f = neighbor.f + neighbor.g;
                //
                neighbor.previous = current;
             }

@@ -1,0 +1,12 @@
+.unit {
+   height: 50px;
+   width: 50px;
+   background-color: violet;
+   position: absolute;
+   z-index: 2;
+   border-radius: 50%;
+   border: 2px solid gray;
+   &:focus {
+      background-color: yellow;
+   }
+}

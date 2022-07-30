@@ -11,16 +11,6 @@ export const Select = ({ map, onDelete, onEdit, headers }) => {
    const [texture, setTexture] = useState('');
    console.log(map);
    useEffect(() => {
-      if (map.name === 'null') {
-         setTexture(() => {
-            return 'url(../img/Texture.png)';
-         });
-      }
-      if (map.name === '1') {
-         setTexture(() => {
-            return 'url(../img/StoneTexture.png)100% 100% no-repeat ';
-         });
-      }
    }, []);
 
    const handleEdit = () => setEditMode((prevEdtiMode) => !prevEdtiMode);
@@ -34,7 +24,6 @@ export const Select = ({ map, onDelete, onEdit, headers }) => {
       <>
          <div style={landStyle}>
             <button
-               key={map.id}
                onClick={handleEdit}
                style={{
                   height: 50,
@@ -43,10 +32,10 @@ export const Select = ({ map, onDelete, onEdit, headers }) => {
                   background: texture
                }}
             >
-               <div>{map.x}:{map.y}</div>
+               <div>obj</div>
             </button>
             {editMode && (
-               <SelectAdd onSubmit={handleSubmit} title="Zapisz" id={map.id} />
+               <SelectAdd onSubmit={handleSubmit} title="Zapisz" />
             )}
          </div>
       </>

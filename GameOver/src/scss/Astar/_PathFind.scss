@@ -1,14 +1,16 @@
 .wrapper {
-   width: 80%;
    margin: auto;
    margin-top:2em;
-   position:absolute
+   position:absolute;
+   padding-bottom:12em;
 }
 .row-wrapper {
    display: flex;
    
 }
 .grid{
+   background:url('/GameOver/src/assets/Texture.png');
+
    display:grid;
    grid-template-columns: repeat(1, 1fr);
 }

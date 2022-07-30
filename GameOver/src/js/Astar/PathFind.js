@@ -7,36 +7,32 @@ import '../../scss/main.scss';
 export const Pathfind = () => {
    const cols = 50;
    const rows = 25;
-   const NodeStartRow = 4;
-   const NodeStartCol = 1;
-   const NodeEndRow = 4;
-   const NodeEndCol = 12;
-   const [Grid, setGrid] = useState([]);
+   const NodeStartRow = 8;
+   const NodeStartCol = 8;
+   const NodeEndRow = 20;
+   const NodeEndCol = 41;
+   const [Grid, setGrid] = useState([]); //grid
    const [path, setPath] = useState([]);
    const [visitedNodes, setVisitedNodes] = useState([]);
    const [node, setNode] = useState({
       cx: null,
       cy: null
    });
-   const [coords, setCoords] = useState([]);
-
-   //console.log(coords);
-   const callFromNode = (dataNodeX, dataNodeY) => {
-      setNode({
-         cx: dataNodeX,
-         cy: dataNodeY
-      });
-   };
+   const [coords, setCoords] = useState(0);
+   //const callFromNode = (dataNodeX, dataNodeY) => {
+   //   setNode({
+   //      cx: dataNodeX,
+   //      cy: dataNodeY
+   //   });
+   //};
 
    useEffect(() => {
       initGrid();
+      visualizePath();
    }, [node]);
    useEffect(() => {
-      visualizePath();
+      settingCoords();
    }, [path]);
-   useEffect(() => {
-      initGrid();
-   }, []);
 
    const initGrid = () => {
       const grid = new Array(rows);
@@ -69,6 +65,25 @@ export const Pathfind = () => {
          }
       }
    };
+   //create Wall
+   //const getNewGridWithWall = (grid, x, y) => {
+   //   console.log(x,y);
+   //   for (let i = 0; i < rows; i++) {
+   //      for (let j = 0; j < cols; j++) {
+   //         const newGrid = grid.slice();
+   //         const node = newGrid[x][y];
+   //         console.log(node);
+   //         if (!node.isStart && node.isEnd) {
+   //            const newNode =
+   //               node.isWall= true
+   //            ;
+   //            console.log(newNode);
+   //            newGrid[x][y] = newNode;
+   //         }
+   //         return newGrid;
+   //      }
+   //   }
+   //};
    //------------spots------------
    function Spot(i, j) {
       this.x = i;
@@ -80,17 +95,17 @@ export const Pathfind = () => {
       this.h = 0;
       this.neighbors = [];
       this.isWall = false;
+      this.previous = undefined;
+      if (Math.random(1) < 0.2) {
+         this.isWall = true;
+      }
       if (this.x === NodeStartRow && this.y === NodeStartCol) {
          this.isWall = false;
       }
       if (this.x === NodeEndRow && this.y === NodeEndCol) {
          this.isWall = false;
       }
-      if (this.x === node.cx && this.y === node.cy) {
-         this.isWall = true;
-      }
 
-      this.previous = undefined;
       this.addneighbors = function (grid) {
          let i = this.x;
          let j = this.y;
@@ -116,8 +131,8 @@ export const Pathfind = () => {
                            col={colIndex}
                            row={rowIndex}
                            isWall={isWall}
-                           callFromNode={callFromNode}
-                           Spot={Spot}
+                           //callFromNode={callFromNode}
+                           //Spot={getNewGridWithWall}
                         ></Node>
                      );
                   })}
@@ -126,20 +141,37 @@ export const Pathfind = () => {
          })}
       </div>
    );
+   const settingCoords = () => {
+      for (let i = 0; i <= visitedNodes.length; i++) {
+         if (i === visitedNodes.length) {
+            getCoords(path);
+         }
+      }
+   };
+   const getCoords = (shortPathNode) => {
+      const getCoorsX = [];
+      const nodeArray = [];
+      for (let i = 0; i < shortPathNode.length; i++) {
+         const node = shortPathNode[i];
+         nodeArray.push(node);
+         getCoorsX.push({
+            left: node.y * 50,
+            top: node.x * 50
+         });
+      }
+      setCoords(getCoorsX.reverse());
+   };
 
    const visualizeShortPath = (shortPathNode) => {
       for (let i = 0; i < shortPathNode.length; i++) {
+         const node = shortPathNode[i];
          setTimeout(() => {
-            const node = shortPathNode[i];
             document.getElementById(`node-${node.x}-${node.y}`).className =
                'node node-short-path';
-            let thr = document
-               .getElementById(`node-${node.x}-${node.y}`)
-               .getBoundingClientRect();
-            return setCoords(thr);
-         }, 100 * i);
+         }, 10 * i);
       }
    };
+
    const visualizePath = () => {
       for (let i = 0; i <= visitedNodes.length; i++) {
          if (i === visitedNodes.length) {
@@ -156,12 +188,20 @@ export const Pathfind = () => {
       }
    };
 
+
+
+   
    return (
       <div className="wrapper">
-         {/*<button onClick={visualizePath}>visual path</button>*/}
-         {/*<h1>Pathfind</h1>*/}
-         <Enemy path={coords} />
+         <button
+            onClick={visualizePath}
+            style={{ position: 'fixed', bottom: 150, left: 50, zIndex: '3' }}
+         >
+            Wiew Path
+         </button>
+         <Enemy X={coords} />
          {GridwithNodes}
+         {/*{GridwithNodesMini}*/}
       </div>
    );
 };

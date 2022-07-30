@@ -1,5 +1,5 @@
 const path = require('path');
-const entryPath = 'GameOver/Sandplace';
+const entryPath = 'GameOver/src';
 
 module.exports = {
    entry: `./${entryPath}/js/app.js`,

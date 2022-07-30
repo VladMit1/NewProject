@@ -28,18 +28,31 @@ const styleBar = {
 };
 
 export const Window = () => {
+   document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') {
+         top()
+      }
+      if (e.key === 'ArrowDown') {
+         down()
+      }
+      if (e.key === 'ArrowLeft') {
+         left()
+      }
+      if (e.key === 'ArrowRight') {
+         right()
+      }
+   });
    const top = () => {
-      window.scrollBy(0, -100);
+      window.scrollBy(0, -25);
    };
-
    const down = () => {
-      window.scrollBy(0, 100);
+      window.scrollBy(0, 25);
    };
    const right = () => {
-      window.scrollBy(100, 0);
+      window.scrollBy(25, 0);
    };
    const left = () => {
-      window.scrollBy(-100, 0);
+      window.scrollBy(-25, 0);
    };
    return (
       <div>

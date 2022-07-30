@@ -9,9 +9,13 @@ export const Node = ({
    callFromNode,
    Spot
 }) => {
-   const isClicked = () => {
-      callFromNode(row, col);
-   };
+   const idEvent = (e) => {
+      console.log(e.target)
+   }
+// setTimeout(() => {})
+//   const isClicked = () => {
+//      callFromNode(row, col);
+//   };
 
    const classes = isStart
       ? 'node-start'
@@ -22,7 +26,9 @@ export const Node = ({
       : '';
    return (
       <div
-         onClick={isClicked}
+         onContextMenu={idEvent}
+         //onClick={isClicked}
+         //style={{ background:'url(../../img/Texture.png'}}
          className={`node ${classes}`}
          id={`node-${row}-${col}`}
       ></div>

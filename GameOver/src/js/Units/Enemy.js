@@ -5,14 +5,14 @@ export const Enemy = ({ X }) => {
    const [start, setStart] = useState(null);
    const [end, setEnd] = useState(null);
    const [foundPath, setFoundPath] = useState([]);
-
+   //console.log(X);
    useEffect(() => {
       Array.isArray(X)
          ? X.map((x, t) => {
-              setTimeout(() => {
-                 setMove(x);
+               setTimeout(() => {
+                  setMove(x);
               }, 1000 * t);
-           })
+            })
          : null;
    }, [X]);
 
